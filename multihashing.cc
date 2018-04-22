@@ -56,6 +56,8 @@ NAN_METHOD(cryptonight) {
                 break;
        case 1:  cryptonight_single_hash<MONERO_ITER, MONERO_MEMORY, MONERO_MASK, SOFT_AES, 1>(reinterpret_cast<const uint8_t*>(Buffer::Data(target)), Buffer::Length(target), reinterpret_cast<uint8_t*>(output), ctx);
                 break;
+	case 2:  cryptonight_single_hash<MONERO_ITER, MONERO_MEMORY, MONERO_MASK, SOFT_AES, 2>(reinterpret_cast<const uint8_t*>(Buffer::Data(target)), Buffer::Length(target), reinterpret_cast<uint8_t*>(output), ctx);
+                break;
        default: cryptonight_single_hash<MONERO_ITER, MONERO_MEMORY, MONERO_MASK, SOFT_AES, 1>(reinterpret_cast<const uint8_t*>(Buffer::Data(target)), Buffer::Length(target), reinterpret_cast<uint8_t*>(output), ctx);
     }
 
