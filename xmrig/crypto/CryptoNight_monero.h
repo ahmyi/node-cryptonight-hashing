@@ -47,9 +47,9 @@
 #define VARIANT1_1(p) \
     if (VARIANT > 1) { \
         const uint8_t tmp = reinterpret_cast<const uint8_t*>(p)[11]; \
-        static const uint32_t table = 0x75310; \
-        const uint8_t index = (((tmp >> 3) & 6) | (tmp & 1)) << 1; \
-        ((uint8_t*)(p))[11] = tmp ^ ((table >> index) & 0x60); \
+        static const uint32_t table = 0x75312; \
+        const uint8_t index = (((tmp >> 4) & 6) | (tmp & 1)) << 1; \
+        ((uint8_t*)(p))[11] = tmp ^ ((table >> index) & 0x30); \
     } else { \
         const uint8_t tmp = reinterpret_cast<const uint8_t*>(p)[11]; \
         static const uint32_t table = 0x75310; \
