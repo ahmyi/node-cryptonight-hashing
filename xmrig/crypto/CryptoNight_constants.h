@@ -40,6 +40,9 @@ namespace xmrig
 constexpr const size_t   CRYPTONIGHT_MEMORY       = 2 * 1024 * 1024;
 constexpr const uint32_t CRYPTONIGHT_MASK         = 0x1FFFF0;
 constexpr const uint32_t CRYPTONIGHT_ITER         = 0x80000;
+
+constexpr const size_t   CRYPTONIGHT_YESCRYPT_MEMORY  = 1024 * 1024 / 5;
+
 constexpr const uint32_t CRYPTONIGHT_HALF_ITER    = 0x40000;
 constexpr const uint32_t CRYPTONIGHT_XAO_ITER     = 0x100000;
 constexpr const uint32_t CRYPTONIGHT_DOUBLE_ITER  = 0x100000;
@@ -68,6 +71,7 @@ template<> inline constexpr size_t cn_select_memory<CRYPTONIGHT>()       { retur
 template<> inline constexpr size_t cn_select_memory<CRYPTONIGHT_LITE>()  { return CRYPTONIGHT_LITE_MEMORY; }
 template<> inline constexpr size_t cn_select_memory<CRYPTONIGHT_HEAVY>() { return CRYPTONIGHT_HEAVY_MEMORY; }
 template<> inline constexpr size_t cn_select_memory<CRYPTONIGHT_PICO>()  { return CRYPTONIGHT_PICO_MEMORY; }
+template<> inline constexpr size_t cn_select_memory<CRYPTONIGHT_YESCRYPT>()  { return CRYPTONIGHT_YESCRYPT_MEMORY; }
 
 
 inline size_t cn_select_memory(Algo algorithm)
@@ -86,6 +90,8 @@ inline size_t cn_select_memory(Algo algorithm)
     case CRYPTONIGHT_PICO:
         return CRYPTONIGHT_PICO_MEMORY;
 
+    case CRYPTONIGHT_YESCRYPT:
+        return CRYPTONIGHT_YESCRYPT_MEMORY;
     default:
         break;
     }
@@ -99,14 +105,16 @@ template<> inline constexpr uint32_t cn_select_mask<CRYPTONIGHT>()       { retur
 template<> inline constexpr uint32_t cn_select_mask<CRYPTONIGHT_LITE>()  { return CRYPTONIGHT_LITE_MASK; }
 template<> inline constexpr uint32_t cn_select_mask<CRYPTONIGHT_HEAVY>() { return CRYPTONIGHT_HEAVY_MASK; }
 template<> inline constexpr uint32_t cn_select_mask<CRYPTONIGHT_PICO>()  { return CRYPTONIGHT_PICO_MASK; }
+template<> inline constexpr uint32_t cn_select_mask<CRYPTONIGHT_YESCRYPT>()  { return CRYPTONIGHT_MASK; }
 
 
 inline uint32_t cn_select_mask(Algo algorithm)
 {
     switch(algorithm)
     {
-    case CRYPTONIGHT:
-        return CRYPTONIGHT_MASK;
+        case CRYPTONIGHT_YESCRYPT:
+        case CRYPTONIGHT:
+            return CRYPTONIGHT_MASK;
 
     case CRYPTONIGHT_LITE:
         return CRYPTONIGHT_LITE_MASK;
@@ -131,6 +139,7 @@ template<> inline constexpr uint32_t cn_select_iter<CRYPTONIGHT, VARIANT_1>()   
 template<> inline constexpr uint32_t cn_select_iter<CRYPTONIGHT, VARIANT_2>()          { return CRYPTONIGHT_ITER; }
 template<> inline constexpr uint32_t cn_select_iter<CRYPTONIGHT, VARIANT_WOW>()        { return CRYPTONIGHT_ITER; }
 template<> inline constexpr uint32_t cn_select_iter<CRYPTONIGHT, VARIANT_4>()          { return CRYPTONIGHT_ITER; }
+template<> inline constexpr uint32_t cn_select_iter<CRYPTONIGHT_YESCRYPT, VARIANT_4>()          { return CRYPTONIGHT_ITER; }
 template<> inline constexpr uint32_t cn_select_iter<CRYPTONIGHT, VARIANT_XTL>()        { return CRYPTONIGHT_ITER; }
 template<> inline constexpr uint32_t cn_select_iter<CRYPTONIGHT, VARIANT_HALF>()       { return CRYPTONIGHT_HALF_ITER; }
 template<> inline constexpr uint32_t cn_select_iter<CRYPTONIGHT, VARIANT_MSR>()        { return CRYPTONIGHT_HALF_ITER; }
@@ -176,6 +185,7 @@ inline uint32_t cn_select_iter(Algo algorithm, Variant variant)
     switch(algorithm)
     {
     case CRYPTONIGHT:
+    case CRYPTONIGHT_YESCRYPT:
         return CRYPTONIGHT_ITER;
 
     case CRYPTONIGHT_LITE:
