@@ -5,12 +5,12 @@ let lineReader = require('readline');
 
 let testsFailed = 0, testsPassed = 0, line_count = 0;
 let lr = lineReader.createInterface({
-     input: fs.createReadStream('cryptonight.txt')
+     input: fs.createReadStream('cryptonight-1.txt')
 });
 lr.on('line', function (line) {
      let line_data = line.split(/ (.+)/);
      line_count += 1;
-     multiHashing.cryptonight_async(Buffer.from(line_data[1]), function(err, result){
+     multiHashing.cryptonight_async(Buffer.from(line_data[1], 'hex'), 1, function(err, result){
          result = result.toString('hex');
          if (line_data[0] !== result){
              console.error(line_data[1] + ": " + result);
