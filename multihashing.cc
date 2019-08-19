@@ -16,24 +16,24 @@
 #include "crypto/randomx/randomx.h"
 #include "crypto/defyx/defyx.h"
 
-#if (defined(__AES__) && (__AES__ == 1)) || (defined(__ARM_FEATURE_CRYPTO) && (__ARM_FEATURE_CRYPTO == 1))
-  #define SOFT_AES false
-  #if defined(CPU_INTEL)
-    #warning Using IvyBridge assembler implementation
-    #define ASM_TYPE xmrig::Assembly::INTEL
-  #elif defined(CPU_AMD)
-    #warning Using Ryzen assembler implementation
-    #define ASM_TYPE xmrig::Assembly::RYZEN
-  #elif defined(CPU_AMD_OLD)
-    #warning Using Bulldozer assembler implementation
-    #define ASM_TYPE xmrig::Assembly::BULLDOZER
-  #elif !defined(__ARM_ARCH)
-    #error Unknown ASM implementation!
-  #endif
-#else
-  #warning Using software AES
-  #define SOFT_AES true
-#endif
+// #if (defined(__AES__) && (__AES__ == 1)) || (defined(__ARM_FEATURE_CRYPTO) && (__ARM_FEATURE_CRYPTO == 1))
+//   #define SOFT_AES false
+//   #if defined(CPU_INTEL)
+//     #warning Using IvyBridge assembler implementation
+//     #define ASM_TYPE xmrig::Assembly::INTEL
+//   #elif defined(CPU_AMD)
+//     #warning Using Ryzen assembler implementation
+//     #define ASM_TYPE xmrig::Assembly::RYZEN
+//   #elif defined(CPU_AMD_OLD)
+//     #warning Using Bulldozer assembler implementation
+//     #define ASM_TYPE xmrig::Assembly::BULLDOZER
+//   #elif !defined(__ARM_ARCH)
+//     #error Unknown ASM implementation!
+//   #endif
+// #else
+//   #warning Using software AES
+// #endif
+#define SOFT_AES true
 
 #define FN(algo)  xmrig::CnHash::fn(xmrig::Algorithm::algo, SOFT_AES ? xmrig::CnHash::AV_SINGLE_SOFT : xmrig::CnHash::AV_SINGLE, xmrig::Assembly::NONE)
 #if defined(ASM_TYPE)
