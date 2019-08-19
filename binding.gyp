@@ -76,6 +76,7 @@
                 '<!@(grep Intel /proc/cpuinfo >/dev/null && echo -DCPU_INTEL || (grep AMD /proc/cpuinfo >/dev/null && (test `awk \'/cpu family/ && $NF~/^[0-9]*$/ {print $NF}\' /proc/cpuinfo | head -n1` -ge 23 && echo -DAMD || echo -DAMD_OLD) || echo))',
                 '<!@(grep avx2 /proc/cpuinfo >/dev/null && echo -DHAVE_AVX2 || echo)',
                 '<!@(grep sse2 /proc/cpuinfo >/dev/null && echo -DHAVE_SSE2 || echo)',
+                '<!@(grep aes /proc/cpuinfo >/dev/null && echo -DHAVE_AES || echo)',
                 '<!@(grep ssse3 /proc/cpuinfo >/dev/null && echo -DHAVE_SSSE3 || echo)',
                 '<!@(grep avx512f /proc/cpuinfo >/dev/null && echo -DHAVE_AVX512F || echo)',
                 '<!@(grep xop /proc/cpuinfo >/dev/null && echo -DHAVE_XOP || echo)',
