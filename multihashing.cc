@@ -33,7 +33,7 @@
 // #else
 //   #warning Using software AES
 // #endif
-#define SOFT_AES true
+#define SOFT_AES false
 
 #define FN(algo)  xmrig::CnHash::fn(xmrig::Algorithm::algo, SOFT_AES ? xmrig::CnHash::AV_SINGLE_SOFT : xmrig::CnHash::AV_SINGLE, xmrig::Assembly::NONE)
 #if defined(ASM_TYPE)
